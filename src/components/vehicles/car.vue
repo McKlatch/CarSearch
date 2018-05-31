@@ -1,6 +1,6 @@
 <template>
   <b-link :to="`/${vehicle.registration}`">
-    <img :src="vehicle.displayImage.small" :alt="`${make} ${model}`">
+    <img :src="imageURL" :alt="`${make} ${model}`">
     <h3>
       {{ make }} {{ model }}
     </h3>
@@ -15,7 +15,13 @@ export default {
   props: ['vehicle'],
   computed: {
     make () { return this.vehicle.vehicleCapDetails.presentationMake },
-    model () { return this.vehicle.vehicleCapDetails.presentationRange }
+    model () { return this.vehicle.vehicleCapDetails.presentationRange },
+    imageURL () {
+      if (!this.vehicle.displayImage) {
+        return this.vehicle.displayImages.small
+      }
+      return this.vehicle.displayImage.small
+    }
   },
   filters: {
     currency (val) {

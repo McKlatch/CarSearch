@@ -15,6 +15,11 @@ export default {
       vehicles: {}
     }
   },
+  computed: {
+    makes () {
+      return [...new Set(this.vehicles.map(carMakes => carMakes.vehicleCapDetails.presentationMake))]
+    }
+  },
   created () {
     fetch('/static/db.json')
     .then(blob => blob.json())
