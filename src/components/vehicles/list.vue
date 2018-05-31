@@ -1,13 +1,14 @@
 <template>
   <div>
     <p v-for="vehicle in vehicles">
-      {{ vehicle.vehicleCapDetails.presentationMake }}
-      {{ vehicle.vehicleCapDetails.presentationRange }}
+      <car-card :car="vehicle" />
     </p>
   </div>
 </template>
 
 <script>
+import carCard from './car.vue'
+
 export default {
   data () {
     return {
@@ -20,7 +21,8 @@ export default {
     .then(json => {
       this.vehicles = json.vehicles
     })
-  }
+  },
+  components: { carCard }
 }
 </script>
 
