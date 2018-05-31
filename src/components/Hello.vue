@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import carList from './vehicles/list.vue'
+import carList from './vehicles/List.vue'
 
 export default {
   name: 'hello',

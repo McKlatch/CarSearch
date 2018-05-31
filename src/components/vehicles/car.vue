@@ -1,21 +1,21 @@
 <template>
-  <div>
-    <img :src="car.displayImage.small" :alt="`${make} ${model}`">
+  <b-link :to="`/${vehicle.registration}`">
+    <img :src="vehicle.displayImage.small" :alt="`${make} ${model}`">
     <h3>
       {{ make }} {{ model }}
     </h3>
     <h5>
-      {{ car.vehiclePrice.salePrice | currency }}
+      {{ vehicle.vehiclePrice.salePrice | currency }}
     </h5>
-  </div>
+  </b-link>
 </template>
 
 <script>
 export default {
-  props: ['car'],
+  props: ['vehicle'],
   computed: {
-    make () { return this.car.vehicleCapDetails.presentationMake },
-    model () { return this.car.vehicleCapDetails.presentationRange }
+    make () { return this.vehicle.vehicleCapDetails.presentationMake },
+    model () { return this.vehicle.vehicleCapDetails.presentationRange }
   },
   filters: {
     currency (val) {

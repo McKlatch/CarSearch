@@ -1,13 +1,13 @@
 <template>
   <div>
     <p v-for="vehicle in vehicles">
-      <car-card :car="vehicle" />
+      <car-card :vehicle="vehicle" />
     </p>
   </div>
 </template>
 
 <script>
-import carCard from './car.vue'
+import carCard from './Car.vue'
 
 export default {
   data () {
