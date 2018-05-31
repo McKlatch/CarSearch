@@ -1,8 +1,8 @@
 <template>
   <div>
+    <img :src="car.displayImage.small" :alt="`${make} ${model}`">
     <h3>
-      {{ car.vehicleCapDetails.presentationMake }}
-      {{ car.vehicleCapDetails.presentationRange }}
+      {{ make }} {{ model }}
     </h3>
     <h5>
       {{ car.vehiclePrice.salePrice | currency }}
@@ -13,6 +13,10 @@
 <script>
 export default {
   props: ['car'],
+  computed: {
+    make () { return this.car.vehicleCapDetails.presentationMake },
+    model () { return this.car.vehicleCapDetails.presentationRange }
+  },
   filters: {
     currency (val) {
       return val.toLocaleString('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 })
