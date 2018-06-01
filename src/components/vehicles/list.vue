@@ -2,8 +2,10 @@
   <div>
     <label for="makeSearch">Search by Make:</label>
     <input v-model="queryMake" type="text" name="makeSearch" placeholder="e.g. Ford">
+    <span v-for="tag in makes" @click="queryMake = tag">{{ tag }} </span>
     <label for="modelSearch">Search by Model:</label>
     <input v-model="queryModel" type="text" name="modelSearch" placeholder="e.g. Fiesta">
+    <span v-for="tag in models" @click="queryModel = tag">{{ tag }} </span>
     <p v-if="!searchVehicles.length">Sorry, none of those here today, we can try again tomorrow.</p>
     <p v-else v-for="vehicle in searchVehicles">
       <car-card :vehicle="vehicle" />
