@@ -2,7 +2,7 @@
   <div>
     <label for="makeSearch">Search by Make:</label>
     <input v-model="queryMake" type="text" name="makeSearch" placeholder="e.g. Ford">
-    <p v-for="tag in makes"><span @click="queryMake = tag">{{ tag }}</span><span @click="excludeMake(tag)">x </span></p>
+    <span v-for="tag in makes" @click="queryMake = tag">{{ tag }}</span>
     <label for="modelSearch">Search by Model:</label>
     <input v-model="queryModel" type="text" name="modelSearch" placeholder="e.g. Fiesta">
     <span v-for="tag in models" @click="queryModel = tag">{{ tag }} </span>
@@ -24,11 +24,7 @@ export default {
       queryMake: '',
       queryModel: '',
       queryPrice: '',
-      activeQuery: 'make',
-      queryExclude: {
-        make: [],
-        model: []
-      }
+      activeQuery: 'make'
     }
   },
   watch: {
@@ -59,9 +55,6 @@ export default {
     }
   },
   methods: {
-    excludeMake (tag) {
-      this.queryExclude.make.push(tag)
-    },
     resetSearch () {
       [this.queryMake, this.queryModel, this.queryPrice] = ''
     }
