@@ -6,6 +6,7 @@
     <label for="modelSearch">Search by Model:</label>
     <input v-model="queryModel" type="text" name="modelSearch" placeholder="e.g. Fiesta">
     <span v-for="tag in models" @click="queryModel = tag">{{ tag }} </span>
+    <span @click="resetSearch">reset</span>
     <p v-if="!searchVehicles.length">Sorry, none of those here today, we can try again tomorrow.</p>
     <p v-else v-for="vehicle in searchVehicles">
       <car-card :vehicle="vehicle" />
@@ -46,10 +47,15 @@ export default {
       })
     },
     makes () {
-      return [...new Set(this.allVehicles.map(carMakes => carMakes.vehicleCapDetails.presentationMake))]
+      return [...new Set(this.searchVehicles.map(carMakes => carMakes.vehicleCapDetails.presentationMake))]
     },
     models () {
-      return [...new Set(this.allVehicles.map(carMakes => carMakes.vehicleCapDetails.presentationRange))]
+      return [...new Set(this.searchVehicles.map(carMakes => carMakes.vehicleCapDetails.presentationRange))]
+    }
+  },
+  methods: {
+    resetSearch () {
+      [this.queryMake, this.queryModel, this.queryPrice] = ''
     }
   },
   components: { carCard },
