@@ -1,7 +1,8 @@
 <template>
   <div>
-    <input v-model="queryStr" type="text" name="carSearch">
-    <p v-for="vehicle in searchVehicles">
+    <input v-model="queryStr" type="text" name="carSearch" placeholder="Type a make or model to search">
+    <p v-if="!searchVehicles.length">Sorry, none of those here today, we can try again tomorrow.</p>
+    <p v-else v-for="vehicle in searchVehicles">
       <car-card :vehicle="vehicle" />
     </p>
   </div>
@@ -26,6 +27,9 @@ export default {
     },
     makes () {
       return [...new Set(this.allVehicles.map(carMakes => carMakes.vehicleCapDetails.presentationMake))]
+    },
+    models () {
+      return [...new Set(this.allVehicles.map(carMakes => carMakes.vehicleCapDetails.presentationRange))]
     }
   },
   components: { carCard },
