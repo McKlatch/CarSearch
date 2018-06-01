@@ -1,6 +1,9 @@
 <template>
   <div>
-    <input v-model="queryStr" type="text" name="carSearch" placeholder="Type a make or model to search">
+    <label for="makeSearch">Search by Make:</label>
+    <input v-model="queryMake" type="text" name="makeSearch" placeholder="e.g. Ford">
+    <label for="modelSearch">Search by Model:</label>
+    <input v-model="queryModel" type="text" name="modelSearch" placeholder="e.g. Fiesta">
     <p v-if="!searchVehicles.length">Sorry, none of those here today, we can try again tomorrow.</p>
     <p v-else v-for="vehicle in searchVehicles">
       <car-card :vehicle="vehicle" />
@@ -15,14 +18,29 @@ import { loadDatabase } from '../mixins/loadDatabase'
 export default {
   data () {
     return {
-      queryStr: ''
+      queryMake: '',
+      queryModel: '',
+      queryPrice: '',
+      activeQuery: 'make'
     }
+  },
+  watch: {
+    queryMake () { this.activeQuery = 'make' },
+    queryModel () { this.activeQuery = 'model' }
   },
   computed: {
     searchVehicles () {
       return this.allVehicles.filter(index => {
-        const regex = new RegExp(this.queryStr, 'gi')
-        return index.vehicleCapDetails.presentationMake.match(regex) || index.vehicleCapDetails.presentationRange.match(regex)
+        let regex
+        if (this.activeQuery === 'make') {
+          regex = new RegExp(this.queryMake, 'gi')
+          return index.vehicleCapDetails.presentationMake.match(regex)
+        }
+        if (this.activeQuery === 'model') {
+          regex = new RegExp(this.queryModel, 'gi')
+          return index.vehicleCapDetails.presentationRange.match(regex)
+        }
+        return []
       })
     },
     makes () {
