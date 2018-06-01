@@ -16,12 +16,7 @@ export default {
   computed: {
     make () { return this.vehicle.vehicleCapDetails.presentationMake },
     model () { return this.vehicle.vehicleCapDetails.presentationRange },
-    imageURL () {
-      if (!this.vehicle.displayImage) {
-        return this.vehicle.displayImages.small
-      }
-      return this.vehicle.displayImage.small
-    }
+    imageURL () { return this.vehicle.displayImage.small }
   },
   filters: {
     currency (val) {
