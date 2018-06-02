@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
+  <b-container id="app">
     <h1 @click="$router.push('/')">CarSearch</h1>
     <router-view></router-view>
-  </div>
+  </b-container>
 </template>
 
 <script>

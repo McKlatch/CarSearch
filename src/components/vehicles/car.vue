@@ -1,4 +1,5 @@
 <template>
+  <b-col lg="3" md="4" sm="6">
     <b-card :title="`${make} ${model}`"
           :img-src="imageURL"
           :img-alt="`${make} ${model}`"
@@ -10,6 +11,7 @@
     </p>
     <b-button variant="primary">More...</b-button>
   </b-card>
+</b-col>
 </template>
 
 <script>
