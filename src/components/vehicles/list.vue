@@ -8,7 +8,7 @@
             label-for="makeSearch"
         >
           <b-input-group>
-            <b-input-group-text @click="queryMake = ''" slot="append">
+            <b-input-group-text v-show="queryMake.length" @click="queryMake = ''" slot="append">
               <strong class="text-info">↺</strong>
             </b-input-group-text>
             <b-form-input id="makeSearch" v-model.trim="queryMake" placeholder="e.g. Ford"/>
@@ -27,7 +27,7 @@
             label-for="modelSearch"
         >
           <b-input-group>
-            <b-input-group-text @click="queryModel = ''" slot="append">
+            <b-input-group-text v-show="queryModel.length" @click="queryModel = ''" slot="append">
               <strong class="text-info">↺</strong>
             </b-input-group-text>
             <b-form-input id="modelSearch" v-model.trim="queryModel" placeholder="e.g. Fiesta"/>
