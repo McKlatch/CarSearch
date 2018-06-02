@@ -2,12 +2,16 @@
   <div>
     <label for="makeSearch">Search by Make:</label>
     <input v-model="queryMake" type="text" name="makeSearch" placeholder="e.g. Ford">
-    <span v-for="tag in makes" @click="queryMake = tag">{{ tag }}</span>
+    <label for="makeTags">Quick Find:</label>
+    <b-badge v-for="tag in makes" @click="queryMake = tag" name="makeTags" pill variant="info" href="#">{{ tag }}</b-badge>
     <label for="modelSearch">Search by Model:</label>
     <input v-model="queryModel" type="text" name="modelSearch" placeholder="e.g. Fiesta">
-    <span v-for="tag in models" @click="queryModel = tag">{{ tag }} </span>
+    <label for="modelTags">Quick Find:</label>
+    <b-badge v-for="tag in models" @click="queryModel = tag" name="modelTags" pill variant="info" href="#">{{ tag }}</b-badge>
     <span @click="resetSearch">reset</span>
-    <p v-if="!searchVehicles.length">Sorry, none of those here today, we can try again tomorrow.</p>
+    <b-alert v-if="!searchVehicles.length" show variant="warning">
+    Sorry, none of those here today, <a href="#" class="alert-link" @click="resetSearch">restart your search</a>.
+    </b-alert>
     <p v-else v-for="vehicle in searchVehicles">
       <car-card :vehicle="vehicle" />
     </p>
@@ -33,7 +37,7 @@ export default {
   },
   computed: {
     searchVehicles () {
-      const reduceBySearch = this.allVehicles.filter(index => {
+      return this.allVehicles.filter(index => {
         let regex, searchResults
         if (this.activeQuery === 'make') {
           regex = new RegExp(this.queryMake, 'gi')
@@ -45,7 +49,6 @@ export default {
         }
         return searchResults
       })
-      return reduceBySearch
     },
     makes () {
       return [...new Set(this.searchVehicles.map(carMakes => carMakes.vehicleCapDetails.presentationMake))]
