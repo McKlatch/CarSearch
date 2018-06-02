@@ -10,6 +10,7 @@
 import { loadDatabase } from './mixins/loadDatabase'
 
 export default {
+  name: 'details',
   computed: {
     make () { return this.vehicle.vehicleCapDetails.presentationMake },
     model () { return this.vehicle.vehicleCapDetails.presentationRange }

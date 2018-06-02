@@ -1,7 +1,9 @@
 <template>
   <b-container id="app">
     <h1 @click="$router.push('/')">CarSearch</h1>
-    <router-view></router-view>
+    <keep-alive exclude="details">
+      <router-view/>
+    </keep-alive>
   </b-container>
 </template>
 

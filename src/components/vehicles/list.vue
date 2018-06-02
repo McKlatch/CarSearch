@@ -14,8 +14,9 @@
             <b-form-input id="makeSearch" v-model.trim="queryMake" placeholder="e.g. Ford"/>
           </b-input-group>
           <slot name="description">
-            <label for="makeTags">Quick Find:</label>
-            <b-badge v-for="tag in makes" @click="queryMake = tag" id="makeTags" pill variant="light" href="#" :key="tag">{{ tag }}</b-badge>
+            <small class="text-muted">Quick Find:
+              <b-badge v-for="tag in makes" @click="queryMake = tag" pill variant="light" href="#" :key="tag">{{ tag }}</b-badge>
+            </small>
           </slot>
         </b-form-group>
       </b-col>
@@ -32,8 +33,9 @@
             <b-form-input id="modelSearch" v-model.trim="queryModel" placeholder="e.g. Fiesta"/>
           </b-input-group>
           <slot name="description">
-            <label for="modelTags">Quick Find:</label>
-            <b-badge v-for="tag in models" @click="queryModel = tag" id="modelTags" pill variant="light" href="#" :key="tag">{{ tag }}</b-badge>
+            <small class="text-muted">Quick Find:
+              <b-badge v-for="tag in models" @click="queryModel = tag" pill variant="light" href="#" :key="tag">{{ tag }}</b-badge>
+            </small>
           </slot>
         </b-form-group>
       </b-col>
@@ -72,6 +74,7 @@ export default {
   },
   computed: {
     searchVehicles () {
+      // TODO: return from localstorage ||
       return this.allVehicles.filter(index => {
         let regex, searchResults
         if (this.activeQuery === 'make') {
