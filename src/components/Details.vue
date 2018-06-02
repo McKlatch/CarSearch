@@ -19,9 +19,18 @@
   <b-col lg="4" md="6" sm="12">
     <b-table small stacked head-variant="light" :items="docInfo"></b-table>
     <b-card title="Inquire Now!"
-          tag="article">
+          tag="article"
+          bg-variant="primary">
     <p class="card-text">
-      <span v-if="vehicle.watchersCount">{{ vehicle.watchersCount }} </span>Other buyers are interested.
+      <strong v-if="vehicle.watchersCount < 1">
+        Other buyers could be interested.
+      </strong>
+      <strong v-if="vehicle.watchersCount === 1">
+        Another buyer is interested.
+      </strong>
+      <strong v-if="vehicle.watchersCount > 1">
+        {{ vehicle.watchersCount }} Other buyers are interested.
+      </strong>
     </p>
   </b-card>
 </b-col lg="4" md="6" sm="12">
