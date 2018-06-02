@@ -2,10 +2,12 @@ export const loadDatabase = {
   data () {
     return {
       allVehicles: [],
-      vehicle: ''
+      vehicle: {},
+      loadingJSON: false
     }
   },
   created () {
+    this.loadingJSON = true
     fetch('/static/db.json')
     .then(blob => blob.json())
     .then(json => {
@@ -20,7 +22,8 @@ export const loadDatabase = {
       this.allVehicles = json.vehicles
       if (this.$route.params.reg) {
         this.vehicle = this.allVehicles.find(obj => obj.registration === this.$route.params.reg)
-      } else this.vehicle = ''
+      } else this.vehicle = {}
+      this.loadingJSON = false
     })
   }
 }

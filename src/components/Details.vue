@@ -1,7 +1,8 @@
 <template>
 	<b-card :img-src="vehicle.displayImage.medium"
           :img-alt="`${make} ${model}`"
-          img-top>
+          img-top
+          v-if="!loadingJSON">
 		<h1>{{ make }} {{ model }} <small>{{ vehicle.year }}</small></h1>
 		<h3>{{ vehicle.minimumMonthlyPayment | currency }}pm <small>or</small> {{ vehicle.vehiclePrice.salePrice | currency }}</h3>
     <p v-if="vehicle.autotraderDescription">{{ vehicle.autotraderDescription }}</p>
