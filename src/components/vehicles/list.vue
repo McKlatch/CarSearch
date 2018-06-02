@@ -89,6 +89,13 @@ export default {
       return [...new Set(this.allVehicles.map(carMakes => carMakes.vehicleCapDetails.presentationMake))]
     },
     models () {
+      if (this.activeQuery === 'make') {
+        const vehiclesByMake = this.allVehicles.filter(index => {
+          const regex = new RegExp(this.queryMake, 'gi')
+          return index.vehicleCapDetails.presentationMake.match(regex)
+        })
+        return [...new Set(vehiclesByMake.map(carMakes => carMakes.vehicleCapDetails.presentationRange))]
+      }
       return [...new Set(this.searchVehicles.map(carMakes => carMakes.vehicleCapDetails.presentationRange))]
     }
   },
