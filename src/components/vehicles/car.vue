@@ -4,8 +4,12 @@
           :img-src="imageURL"
           :img-alt="`${make} ${model}`"
           img-top
+          :border-variant="hover ? 'primary' : 'default'"
+          :bg-variant="hover ? 'light' : 'default'"
           tag="article"
-          @click="$router.push(`/${vehicle.registration}`)">
+          @click="$router.push(`/${vehicle.registration}`)"
+          @mouseenter="hover = true"
+          @mouseleave="hover = false">
     <div class="card-text">
       <span v-if="vehicle.attentionGrabber" class="font-weight-bold text-primary">{{ vehicle.attentionGrabber }}</span>
       <span class="font-weight-bold">{{ vehicle.minimumMonthlyPayment | currency }}pm</span> or {{ vehicle.vehiclePrice.salePrice | currency }}
@@ -17,6 +21,11 @@
 <script>
 export default {
   props: ['vehicle'],
+  data () {
+    return {
+      hover: false
+    }
+  },
   computed: {
     make () { return this.vehicle.vehicleCapDetails.presentationMake },
     model () { return this.vehicle.vehicleCapDetails.presentationRange },

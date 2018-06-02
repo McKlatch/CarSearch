@@ -1,8 +1,9 @@
 <template>
-	<div>
-		<img :src="vehicle.displayImage.medium" :alt="`${make} ${model}`">
-		<h1>{{ make }} {{ model }} {{ vehicle.year }}</h1>
-		<h3>{{ vehicle.minimumMonthlyPayment | currency }}pm or {{ vehicle.vehiclePrice.salePrice | currency }}</h3>
+	<b-card :img-src="vehicle.displayImage.medium"
+          :img-alt="`${make} ${model}`"
+          img-top>
+		<h1>{{ make }} {{ model }} <small>{{ vehicle.year }}</small></h1>
+		<h3>{{ vehicle.minimumMonthlyPayment | currency }}pm <small>or</small> {{ vehicle.vehiclePrice.salePrice | currency }}</h3>
     <p v-if="vehicle.autotraderDescription">{{ vehicle.autotraderDescription }}</p>
     <p v-if="vehicle.attentionGrabber">{{ vehicle.attentionGrabber }}</p>
 
@@ -10,22 +11,22 @@
       <b-col>
     <b-table small stacked head-variant="light" :items="carInfo"></b-table>
   </b-col>
-  <b-col>
-    <b-list-group>
-      <b-list-group-item v-for="feature in vehicle.topFeatures">{{ feature }}</b-list-group-item>
+  <b-col lg="4" md="6" sm="12">
+    <b-list-group flush>
+      <b-list-group-item v-for="(feature, i) in vehicle.topFeatures" :key="i">{{ feature }}</b-list-group-item>
     </b-list-group>
   </b-col>
-  <b-col>
+  <b-col lg="4" md="6" sm="12">
     <b-table small stacked head-variant="light" :items="docInfo"></b-table>
     <b-card title="Inquire Now!"
           tag="article">
     <p class="card-text">
-      {{ vehicle.watchersCount }} Other buyers are interested.
+      <span v-if="vehicle.watchersCount">{{ vehicle.watchersCount }} </span>Other buyers are interested.
     </p>
   </b-card>
-</b-col>
+</b-col lg="4" md="6" sm="12">
 </b-row>
-	</div>
+	</b-card>
 </template>
 
 <script>
@@ -43,7 +44,7 @@ export default {
         '🚪': this.vehicle.doors,
         '🌀': this.vehicle.drivetrain,
         '⚙️': this.vehicle.transmission,
-        '💨': this.vehicle.carbonEmission + ' g/km',
+        '💨': (this.vehicle.carbonEmission || 'unknown') + ' g/km',
         '🔎': this.vehicle.displayColour || 'colour',
         '🚗': this.vehicle.vehicleCapDetails.bodyStyle,
         '⚖️': this.vehicle.vehicleCapDetails.engineSize + ' cc',

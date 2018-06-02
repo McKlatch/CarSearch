@@ -11,7 +11,7 @@
             <b-input-group-text v-show="queryMake.length" @click="queryMake = ''" slot="append">
               <strong class="text-info">↺</strong>
             </b-input-group-text>
-            <b-form-input id="makeSearch" v-model.trim="queryMake" placeholder="e.g. Ford"/>
+            <b-form-input v-focus id="makeSearch" v-model.trim="queryMake" placeholder="e.g. Ford"/>
           </b-input-group>
           <slot name="description">
             <small class="text-muted">Quick Find:
@@ -106,6 +106,13 @@ export default {
     resetSearch () {
       this.queryMake = ''
       this.queryModel = ''
+    }
+  },
+  directives: {
+    focus: {
+      inserted (el) {
+        el.focus()
+      }
     }
   },
   components: { carCard },
