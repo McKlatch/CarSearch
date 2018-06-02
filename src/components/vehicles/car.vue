@@ -6,10 +6,10 @@
           img-top
           tag="article"
           @click="$router.push(`/${vehicle.registration}`)">
-    <p class="card-text">
-      {{ vehicle.vehiclePrice.salePrice | currency }}
-    </p>
-    <b-button variant="primary">More...</b-button>
+    <div class="card-text">
+      <span v-if="vehicle.attentionGrabber" class="font-weight-bold text-primary">{{ vehicle.attentionGrabber }}</span>
+      <span class="font-weight-bold">{{ vehicle.minimumMonthlyPayment | currency }}pm</span> or {{ vehicle.vehiclePrice.salePrice | currency }}
+    </div>
   </b-card>
 </b-col>
 </template>
