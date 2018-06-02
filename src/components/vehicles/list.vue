@@ -1,3 +1,4 @@
+<!-- All of the search logic is in this document. For better and more efficicient useabilty, parts of this page could be separated out into their own components. This would demand an event bus or a state manager (such as vuex/redux), beyond the scope of the timeframe for this project. -->
 <template>
   <div>
     <b-row>
@@ -20,6 +21,7 @@
           </slot>
         </b-form-group>
       </b-col>
+      <!-- TODO: Refactor into multipurpose search component -->
       <b-col sm="12" md="6">
         <b-form-group
             id="formModelSearch"
@@ -69,12 +71,13 @@ export default {
     }
   },
   watch: {
+    // These decide which search box to prioritise
     queryMake () { this.activeQuery = 'make' },
     queryModel () { this.activeQuery = 'model' }
   },
   computed: {
     searchVehicles () {
-      // TODO: return from localstorage ||
+      // TODO: unite search functions into one input box
       return this.allVehicles.filter(index => {
         let regex, searchResults
         if (this.activeQuery === 'make') {
@@ -89,9 +92,11 @@ export default {
       })
     },
     makes () {
+      // generate a list of vehicle makes based on occurances in the database
       return [...new Set(this.allVehicles.map(carMakes => carMakes.vehicleCapDetails.presentationMake))]
     },
     models () {
+      // generate a list of vehicle models based on occurances in the database
       if (this.activeQuery === 'make') {
         const vehiclesByMake = this.allVehicles.filter(index => {
           const regex = new RegExp(this.queryMake, 'gi')
@@ -110,6 +115,7 @@ export default {
   },
   directives: {
     focus: {
+      // focus the search box on page load
       inserted (el) {
         el.focus()
       }

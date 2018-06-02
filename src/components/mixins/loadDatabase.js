@@ -1,3 +1,5 @@
+// API data goes here
+
 export const loadDatabase = {
   data () {
     return {
@@ -7,6 +9,7 @@ export const loadDatabase = {
     }
   },
   created () {
+    // loading bool prevents assets loading before the data is retrieved
     this.loadingJSON = true
     fetch('/static/db.json')
     .then(blob => blob.json())
@@ -20,6 +23,7 @@ export const loadDatabase = {
         }
       })
       this.allVehicles = json.vehicles
+      // extract details for single vehicle if specified
       if (this.$route.params.reg) {
         this.vehicle = this.allVehicles.find(obj => obj.registration === this.$route.params.reg)
       } else this.vehicle = {}

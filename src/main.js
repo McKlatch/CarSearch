@@ -10,6 +10,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 
+// This is where I would insert Analytics logic
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

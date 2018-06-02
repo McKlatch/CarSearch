@@ -3,6 +3,7 @@
           :img-alt="`${make} ${model}`"
           img-top
           v-if="!loadingJSON">
+    <!-- Dynamic content retrieved from database by reconciling registration in url -->
 		<h1>{{ make }} {{ model }} <small>{{ vehicle.year }}</small></h1>
 		<h3>{{ vehicle.minimumMonthlyPayment | currency }}pm <small>or</small> {{ vehicle.vehiclePrice.salePrice | currency }}</h3>
     <p v-if="vehicle.autotraderDescription">{{ vehicle.autotraderDescription }}</p>
@@ -49,6 +50,7 @@ export default {
     model () { return this.vehicle.vehicleCapDetails.presentationRange },
     carInfo () {
       return [{
+        // emojis used for reduced clutter
         '⛽': this.vehicle.fuel,
         '💺': this.vehicle.statistics.seats,
         '🚪': this.vehicle.doors,
