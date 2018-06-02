@@ -1,13 +1,15 @@
 <template>
-  <b-link :to="`/${vehicle.registration}`">
-    <img :src="imageURL" :alt="`${make} ${model}`">
-    <h3>
-      {{ make }} {{ model }}
-    </h3>
-    <h5>
+    <b-card :title="`${make} ${model}`"
+          :img-src="imageURL"
+          :img-alt="`${make} ${model}`"
+          img-top
+          tag="article"
+          @click="$router.push(`/${vehicle.registration}`)">
+    <p class="card-text">
       {{ vehicle.vehiclePrice.salePrice | currency }}
-    </h5>
-  </b-link>
+    </p>
+    <b-button variant="primary">More...</b-button>
+  </b-card>
 </template>
 
 <script>

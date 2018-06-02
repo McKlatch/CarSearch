@@ -1,14 +1,39 @@
 <template>
   <div>
-    <label for="makeSearch">Search by Make:</label>
-    <input v-model="queryMake" type="text" name="makeSearch" placeholder="e.g. Ford">
-    <label for="makeTags">Quick Find:</label>
-    <b-badge v-for="tag in makes" @click="queryMake = tag" name="makeTags" pill variant="info" href="#">{{ tag }}</b-badge>
-    <label for="modelSearch">Search by Model:</label>
-    <input v-model="queryModel" type="text" name="modelSearch" placeholder="e.g. Fiesta">
-    <label for="modelTags">Quick Find:</label>
-    <b-badge v-for="tag in models" @click="queryModel = tag" name="modelTags" pill variant="info" href="#">{{ tag }}</b-badge>
-    <span @click="resetSearch">reset</span>
+    <b-form-group
+      id="formMakeSearch"
+      label="Search by Make:"
+      label-for="makeSearch"
+    >
+      <b-input-group>
+        <b-input-group-text @click="queryMake = ''" slot="append">
+            <strong class="text-info">↺</strong>
+        </b-input-group-text>
+        <b-form-input id="makeSearch" v-model.trim="queryMake" placeholder="e.g. Ford"/>
+      </b-input-group>
+      <slot name="description">
+        <label for="makeTags">Quick Find:</label>
+        <b-badge v-for="tag in makes" @click="queryMake = tag" name="makeTags" pill variant="info" href="#" :key="tag">{{ tag }}</b-badge>
+      </slot>
+    </b-form-group>
+
+    <b-form-group
+      id="formModelSearch"
+      label="Search by Model:"
+      label-for="modelSearch"
+    >
+      <b-input-group>
+        <b-input-group-text @click="resetModelSearch" slot="append">
+            <strong class="text-info">↺</strong>
+        </b-input-group-text>
+        <b-form-input id="modelSearch" v-model.trim="queryModel" placeholder="e.g. Fiesta"/>
+      </b-input-group>
+      <slot name="description">
+        <label for="modelTags">Quick Find:</label>
+        <b-badge v-for="tag in models" @click="queryModel = tag" name="modelTags" pill variant="info" href="#" :key="tag">{{ tag }}</b-badge>
+      </slot>
+    </b-form-group>
+
     <b-alert v-if="!searchVehicles.length" show variant="warning">
     Sorry, none of those here today, <a href="#" class="alert-link" @click="resetSearch">restart your search</a>.
     </b-alert>
@@ -27,7 +52,6 @@ export default {
     return {
       queryMake: '',
       queryModel: '',
-      queryPrice: '',
       activeQuery: 'make'
     }
   },
@@ -59,7 +83,12 @@ export default {
   },
   methods: {
     resetSearch () {
-      [this.queryMake, this.queryModel, this.queryPrice] = ''
+      this.queryMake = ''
+      this.queryModel = ''
+    },
+    resetModelSearch () {
+      this.queryModel = ''
+      this.activeQuery = 'make'
     }
   },
   components: { carCard },
